@@ -28,7 +28,7 @@ public class williamhill_placebet1 {
 		 WebDriver driver1 = new ChromeDriver();
 		 WebDriverWait waitTime = new WebDriverWait(driver1, 15);
 		 String williamH = "http://sports.williamhill.com/bet/en-gb";
-		 String strBet = "10.5";
+		 String strBet = "10.50";
 		 
 		 driver1.get(williamH);
 		 waitTime.until(ExpectedConditions.visibilityOfElementLocated(By.id("popupMain")));
@@ -53,7 +53,7 @@ public class williamhill_placebet1 {
 		 waitTime.until(ExpectedConditions.visibilityOfElementLocated(By.id("betSlip")));
 		 String horseNameTable = driver1.findElement(By.xpath("/html/body/div[3]/div[7]/div[2]/div/div/table/tbody/tr[2]/td[2]")).getText();
 		 System.out.println("Horse name in table is "+horseNameTable);
-		
+		 
 		 //split the horse's name 
 		 String horseNameSlip = driver1.findElement(By.className("slipName")).getText();
 		 String convertString = horseNameSlip;
@@ -62,7 +62,7 @@ public class williamhill_placebet1 {
 		 System.out.println("Horse name in bet slip is "+horseNameSplit);
 		 
 		 //assert if the names are the same
-		 if(horseNameSlip.contains(horseNameTable))
+		 if(horseNameSplit.equals(horseNameTable))
 			 System.out.println("Horse names are consistent.");
 		 else
 			 System.out.println("Horse names are inconsistent.");
@@ -83,8 +83,13 @@ public class williamhill_placebet1 {
 		 
 		 //extracting the value from "Total Stake" to compare to the value entered previously if they are equal
 		 String totalStake = driver1.findElement(By.id("slipMainTotalStake")).getText();
-		 System.out.println("Total stake element contains "+totalStake);
-		 assertTrue(totalStake.contains(strBet));
+		 
+		 //Split stake amount to exclude extra characters
+		 String convertBet = totalStake;
+		 String[] partitionBet = convertBet.split("  ");
+		 String betSplit = partitionBet[1];
+		 System.out.println("Total stake element contains "+betSplit);
+		 assertTrue(betSplit.equals(strBet));
 		 
 		 System.out.println("If the assertion was false, the script would not have reached this"
 		 		+ " line. Bet amount entered. Placing bet.");
