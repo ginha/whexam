@@ -53,8 +53,13 @@ public class williamhill_placebet1 {
 		 waitTime.until(ExpectedConditions.visibilityOfElementLocated(By.id("betSlip")));
 		 String horseNameTable = driver1.findElement(By.xpath("/html/body/div[3]/div[7]/div[2]/div/div/table/tbody/tr[2]/td[2]")).getText();
 		 System.out.println("Horse name in table is "+horseNameTable);
+		
+		 //split the horse's name 
 		 String horseNameSlip = driver1.findElement(By.className("slipName")).getText();
-		 System.out.println("Horse name in bet slip is "+horseNameSlip);
+		 String convertString = horseNameSlip;
+		 String[] partition = convertString.split(" @");
+		 String horseNameSplit = partition[0];
+		 System.out.println("Horse name in bet slip is "+horseNameSplit);
 		 
 		 //assert if the names are the same
 		 if(horseNameSlip.contains(horseNameTable))
